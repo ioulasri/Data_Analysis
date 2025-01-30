@@ -7,84 +7,81 @@ import numpy as np
 import seaborn as sns
 
 
+def plot_gender_survival():
+    # Load the cleaned dataset
 
-# Load the cleaned dataset
-
-df = pd.read_csv("../Cleaned_titanic_data.csv")
-
-
-
-# Group by survived and sex
-
-survival_data = df.groupby(["survived", "sex"]).size()
+    df = pd.read_csv("../Cleaned_titanic_data.csv")
 
 
 
-# Extract survival counts
+    # Group by survived and sex
 
-X = survival_data.loc[(0, "female")]  # Females who did not survive
-
-Y = survival_data.loc[(1, "female")]  # Females who survived
-
-A = survival_data.loc[(0, "male")]    # Males who did not survive
-
-B = survival_data.loc[(1, "male")]    # Males who survived
+    survival_data = df.groupby(["survived", "sex"]).size()
 
 
 
-# Calculate survival rates
+    # Extract survival counts
 
-male_survival_rate = round(B * 100 / (A + B), 2)
+    X = survival_data.loc[(0, "female")]  # Females who did not survive
 
-male_death_rate = round(100 - male_survival_rate, 2)
+    Y = survival_data.loc[(1, "female")]  # Females who survived
 
+    A = survival_data.loc[(0, "male")]    # Males who did not survive
 
-
-female_survival_rate = round(Y * 100 / (X + Y), 2)
-
-female_death_rate = round(100 - female_survival_rate, 2)
-
-print(f"Male survival rate: {male_survival_rate}%")
-print(f"Female survival rate: {female_survival_rate}%")
-
-print(f"Male death rate: {male_death_rate}%")
-print(f"Female death rate: {female_death_rate}%")
-
-data = {
-
-    "Gender": ["Male", "Male", "Female", "Female"],
-
-    "Rate Type": ["Survived", "Did Not Survive", "Survived", "Did Not Survive"],
-
-    "Percentage": [male_survival_rate, male_death_rate, female_survival_rate, female_death_rate],
-
-}
+    B = survival_data.loc[(1, "male")]    # Males who survived
 
 
 
-df_visual = pd.DataFrame(data)
+    # Calculate survival rates
+
+    male_survival_rate = round(B * 100 / (A + B), 2)
+
+    male_death_rate = round(100 - male_survival_rate, 2)
 
 
 
-# Create a bar plot using seaborn
+    female_survival_rate = round(Y * 100 / (X + Y), 2)
 
-plt.figure(figsize=(8, 5))
+    female_death_rate = round(100 - female_survival_rate, 2)
 
-sns.barplot(x="Gender", y="Percentage", hue="Rate Type", data=df_visual, palette={"Survived": "green", "Did Not Survive": "red"})
+    print(f"Male survival rate: {male_survival_rate}%")
+    print(f"Female survival rate: {female_survival_rate}%")
+
+    print(f"Male death rate: {male_death_rate}%")
+    print(f"Female death rate: {female_death_rate}%")
+
+    data = {
+
+        "Gender": ["Male", "Male", "Female", "Female"],
+
+        "Rate Type": ["Survived", "Did Not Survive", "Survived", "Did Not Survive"],
+
+        "Percentage": [male_survival_rate, male_death_rate, female_survival_rate, female_death_rate],
+
+    }
+
+    df_visual = pd.DataFrame(data)
 
 
 
-# Labels and title
+    # Create a bar plot using seaborn
 
-plt.xlabel("Gender")
+    plt.figure(figsize=(8, 5))
 
-plt.ylabel("Percentage (%)")
-
-plt.title("Survival vs Death Rates by Gender on Titanic")
+    sns.barplot(x="Gender", y="Percentage", hue="Rate Type", data=df_visual, palette={"Survived": "green", "Did Not Survive": "red"})
 
 
 
-# Show the plot
+    # Labels and title
 
-plt.show()
+    plt.xlabel("Gender")
+
+    plt.ylabel("Percentage (%)")
+
+    plt.title("Survival vs Death Rates by Gender on Titanic")
+
+
+
+    # Show the plot
+    plt.show()
 
