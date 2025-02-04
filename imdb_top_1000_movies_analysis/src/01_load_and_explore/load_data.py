@@ -1,10 +1,9 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
 # Load dataset
-df = pd.read_csv("../imdb_top_1000.csv")
+df = pd.read_csv("../../imdb_top_1000.csv")
 
 # Drop unnecessary columns
 df = df.drop(["Poster_Link", "Certificate", "Meta_score"], axis=1)
@@ -40,4 +39,4 @@ print(df.shape)
 
 sample_after = df[df.index == sample_before.index[0]]
 
-cleaned_data = df.to_csv("cleaned_imdb_top_1000_movies.csv")
+cleaned_data = df.to_csv("movies.csv")
