@@ -8,8 +8,8 @@ year_data = df["Released_Year"].value_counts()
 
 print("0-1 Number of movies released each year from dataset: ")
 
-for year, release in year_data.items():
-    print(f"{release} movies released in {year}")
+for year, value in year_data.items():
+    print(f"Year: {year}, Count: {value}")
 
 # Year with the most movies released:
 
