@@ -33,6 +33,15 @@ df_missing.loc[:, "Gross"] = model.predict(df_missing[features])
 # Merge back into original DataFrame
 df.loc[df["Gross"].isnull(), "Gross"] = df_missing["Gross"]
 
+# Convert 'Released_Year' to numeric and drop invalid values
+df["Released_Year"] = pd.to_numeric(df["Released_Year"], errors="coerce")
+
+# Drop rows with NaN years (invalid values)
+df = df.dropna(subset=["Released_Year"])
+
+# Convert 'Released_Year' back to integer (optional)
+df["Released_Year"] = df["Released_Year"].astype(int)
+
 # Final check
 print(df.isnull().sum())
 print(df.shape)
